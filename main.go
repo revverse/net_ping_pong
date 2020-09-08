@@ -22,7 +22,7 @@ func HandleConn(c net.Conn) {
 	log.Println("received", numBytes, "bytes:", string(buffer))
 
 	// handle reply
-	msg := string(buffer[:numBytes]) + " back " + time.Now().Format("2006-01-02-15-04-05.000000")
+	msg := string(buffer[:numBytes]) + " -> " + time.Now().Format("2006-01-02-15-04-05.000000")
 	_, err = c.Write([]byte(msg))
 	if err != nil {
 		log.Fatal(err)
@@ -76,6 +76,7 @@ func main() {
 		appType       = kingpin.Flag("t", "Ping or pong ? ").Default("pong").String()
 		dstAddress    = kingpin.Flag("d", "Destination host:port.").Default("127.0.0.1:8356").String()
 	)
+	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 	kingpin.Version("Ping-pong application")
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
@@ -123,7 +124,7 @@ func main() {
 			start := time.Now()
 			m = Ping("tcp", *dstAddress)
 			since := time.Since(start).Microseconds()
-			log.Println(RenderBar(since), m, " curr t ", time.Now().Format("2006-01-02-15-04-05.000000"), " diff(microsec): ", since)
+			log.Println(RenderBar(since), m, " diff(microsec): ", since)
 			//RenderBar(time.Since(start).Microseconds())
 			time.Sleep(200 * time.Millisecond)
 		}
