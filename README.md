@@ -1,5 +1,5 @@
 # net_ping_pong
-Very simple network ping-pong app for test connection
+Very simple network ping-pong app for test connection ( Copy-Paste from internet)
 
 # Using
 On server side :
