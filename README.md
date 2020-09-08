@@ -4,6 +4,8 @@ Very simple network ping-pong app for test connection
 # Using
 On server side :
 `./ping_pong`
+or with port
+`./ping_pong --p ":2345"`
 
 On client side:
 `./ping_pong --t ping --d <serverIP>:8356`
