@@ -22,7 +22,7 @@ func HandleConn(c net.Conn) {
 	log.Println("received", numBytes, "bytes:", string(buffer))
 
 	// handle reply
-	msg := string(buffer[:numBytes]) + " -> " + time.Now().Format("2006-01-02-15-04-05.000000")
+	msg := string(buffer[:numBytes]) + " -> " + time.Now().Format("15:04:05.000000")
 	_, err = c.Write([]byte(msg))
 	if err != nil {
 		log.Fatal(err)
@@ -38,7 +38,7 @@ func Ping(proto, addr string) string {
 	}
 	defer c.Close()
 
-	msg := []byte(time.Now().Format("2006-01-02-15-04-05.000000"))
+	msg := []byte(time.Now().Format("15:04:05.000000"))
 	_, err = c.Write(msg)
 	if err != nil {
 		log.Fatal(err)
@@ -111,7 +111,7 @@ func main() {
 			var m string
 			start := time.Now()
 			m = Ping("tcp", *dstAddress)
-			log.Println(i+1, m, " ", time.Now().Format("2006-01-02-15-04-05.000000"), " diff: ", time.Since(start).Microseconds())
+			log.Println(i+1, m, " ", time.Now().Format("15:04:05.000000"), " diff: ", time.Since(start).Microseconds())
 			stdPong += time.Since(start).Microseconds()
 			time.Sleep(200 * time.Millisecond)
 		}
